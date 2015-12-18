@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple styled maps</title>
+    <title>NUMA pulse</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
@@ -123,22 +123,27 @@
 function initMap() {
   var customMapType = new google.maps.StyledMapType([
     {
-        "featureType": "road",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
+        featureType: "all",
+        elementType: "labels",
+        stylers: [
+            { visibility: "off" }
         ]
-    },
-    {
-        "featureType": "poi",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
+      },
+       {
+        featureType: "administrative.country",
+        elementType: "geometry.fill",
+        stylers: [
+            { visibility: "off" }
         ]
-    },
+      },
+         {
+        featureType: "administrative.country",
+        elementType: "geometry.stroke",
+        stylers: [
+            { visibility: "off" }
+        ]
+      },
+  
     {
         "featureType": "administrative",
         "stylers": [
@@ -148,34 +153,10 @@ function initMap() {
         ]
     },
     {
-        "featureType": "road",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#000000"
-            },
-            {
-                "weight": 1
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "color": "#000000"
-            },
-            {
-                "weight": 0.8
-            }
-        ]
-    },
-    {
         "featureType": "landscape",
         "stylers": [
             {
-                "color": "#ffffff"
+                "color": "#DAE1E3"
             }
         ]
     },
@@ -183,10 +164,16 @@ function initMap() {
         "featureType": "water",
         "stylers": [
             {
-                "visibility": "on"
+                "visibility": "on",
             }
         ]
     },
+    { featureType: "water", stylers: [
+        { invert_lightness: true },
+        { hue: "#ff003b" },
+        { saturation: -100 },
+        { lightness: 100 } /* generates "white" color */
+    ] },
     {
         "featureType": "transit",
         "stylers": [
@@ -202,47 +189,19 @@ function initMap() {
                 "visibility": "off"
             }
         ]
-    },
-    {
-        "elementType": "labels.text",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    },
-    {
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": "#000000"
-            }
-        ]
-    },
-    {
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
     }
+   
 ], {
       name: 'Custom Style'
   });
   var customMapTypeId = 'custom_style';
 
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 3,
-    center: {lat: 48.674, lng: 58.4746922},  
+    zoom: 2,
+    center: {lat: 43.674, lng: 58.4746922},  
+     zoomControl: false,
+     streetViewControl: false,
+     mapTypeControl: false,
     mapTypeControlOptions: {
       mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
     }
