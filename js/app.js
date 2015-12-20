@@ -74,9 +74,10 @@ function initMap() {
   });
   var customMapTypeId = 'custom_style';
 
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 2,
-    center: {lat: 43.674, lng: 58.4746922},  
+
+map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 7,
+    center: {lat: 48.856614, lng: 2.352222},
      zoomControl: false,
      streetViewControl: false,
      mapTypeControl: false,
@@ -85,20 +86,13 @@ function initMap() {
     }
   });
 
-jQuery.ajaxSetup({async:false});
+ var imageBounds = new google.maps.LatLngBounds(new google.maps.LatLng(48.574790, 1.098633), 
+  new google.maps.LatLng( 49.303636, 3.526611));
 
-$.get('NUMA_logo.svg', function(data) {
-   template = data;
-  
-},'text');
-svg = template.replace('{{ color }}', 'M 0,0 H 58.647 V 175.944 L 0,146.62 Z');
-
-marker = new google.maps.Marker({
-    position:  {lat: 48.858093, lng: 2.294694},
-    map: map,
-    draggable: false,
-    icon: { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg) }
-});
+numa_logo = new google.maps.GroundOverlay(
+      '/numa_animated_low.svg',
+      imageBounds);
+numa_logo.setMap(map);
 
 map.mapTypes.set(customMapTypeId, customMapType);
 map.setMapTypeId(customMapTypeId);
@@ -117,14 +111,22 @@ var cpt = true;
     });
     var channel = pusher.subscribe('test_channel');
     channel.bind('my_event', function(data) {
+    
+
       cpt = !cpt;
       console.log(cpt);
-      if (cpt)
-           svg = template.replace('{{ color }}', 'M 0,0 H 58.647 V 175.944 L 0,146.62 Z');
-      else 
-          svg = template.replace('{{ color }}', 'M 0,0 H 58.647 V 145.944 L 0,116.62 Z');
-
-      icon = { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg) }
-      marker.setIcon(icon);
+      if (cpt) {
+           //svg = template.replace('{{ color }}', 'M 0,0 H 58.647 V 175.944 L 0,146.62 Z');
+            numa_logo.set('url','/svg/numa_animated_low.svg');
+            
+      }else {
+          //  svg = template.replace('{{ color }}', 'M 0,0 H 58.647 V 145.944 L 0,116.62 Z');
+          numa_logo.set('url','/svg/numa_animated.svg');
+         
+      }
+      
+      numa_logo.setMap(map);
+      //icon = { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg) }
+     // marker.setIcon(icon);
       
 });
