@@ -90,7 +90,7 @@ map = new google.maps.Map(document.getElementById('map'), {
   new google.maps.LatLng( 49.303636, 3.526611));
 
 numa_logo = new google.maps.GroundOverlay(
-      '/numa_animated_low.svg',
+      '/svg/numa_animated_low.svg',
       imageBounds);
 numa_logo.setMap(map);
 
@@ -111,22 +111,12 @@ var cpt = true;
     });
     var channel = pusher.subscribe('test_channel');
     channel.bind('my_event', function(data) {
-    
-
       cpt = !cpt;
-      console.log(cpt);
+      //console.log(cpt);
       if (cpt) {
-           //svg = template.replace('{{ color }}', 'M 0,0 H 58.647 V 175.944 L 0,146.62 Z');
             numa_logo.set('url','/svg/numa_animated_low.svg');
-            
       }else {
-          //  svg = template.replace('{{ color }}', 'M 0,0 H 58.647 V 145.944 L 0,116.62 Z');
           numa_logo.set('url','/svg/numa_animated.svg');
-         
       }
-      
-      numa_logo.setMap(map);
-      //icon = { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg) }
-     // marker.setIcon(icon);
-      
+       numa_logo.setMap(map);
 });
