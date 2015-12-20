@@ -104,6 +104,8 @@ map.mapTypes.set(customMapTypeId, customMapType);
 map.setMapTypeId(customMapTypeId);
 }
 
+var cpt = true;
+
  Pusher.log = function(message) {
       if (window.console && window.console.log) {
         window.console.log(message);
@@ -115,8 +117,9 @@ map.setMapTypeId(customMapTypeId);
     });
     var channel = pusher.subscribe('test_channel');
     channel.bind('my_event', function(data) {
-      console.log(data.val);
-      if (data.val%2 == 0)
+      cpt = !cpt;
+      console.log(cpt);
+      if (cpt)
            svg = template.replace('{{ color }}', 'M 0,0 H 58.647 V 175.944 L 0,146.62 Z');
       else 
           svg = template.replace('{{ color }}', 'M 0,0 H 58.647 V 145.944 L 0,116.62 Z');
