@@ -30,6 +30,23 @@ function initMap() {
             }
         ]
     },
+     {
+        "featureType": "road",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    
+     {
+        "featureType": "poi",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
     {
         "featureType": "landscape",
         "stylers": [
@@ -76,7 +93,7 @@ function initMap() {
 
 
 map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 7,
+    zoom: 5,
     center: {lat: 48.856614, lng: 2.352222},
      zoomControl: false,
      streetViewControl: false,
@@ -86,8 +103,8 @@ map = new google.maps.Map(document.getElementById('map'), {
     }
   });
 
- var imageBounds = new google.maps.LatLngBounds(new google.maps.LatLng(48.574790, 1.098633), 
-  new google.maps.LatLng( 49.303636, 3.526611));
+ var imageBounds = new google.maps.LatLngBounds(new google.maps.LatLng(43.834527, -7.031250), 
+  new google.maps.LatLng( 50.289339, 11.601563));
 
 numa_logo = new google.maps.GroundOverlay(
       '/svg/numa_animated_low.svg',
