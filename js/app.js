@@ -12,20 +12,20 @@ var futur_numa = {
 
 var present_numa = {
   moscou : { 
-    start : {lat: 55.128649, lng: 33.222656},
-    end : {lat:58.170702 , lng : 44.560547}
+    start : {lat: 45.128649, lng: 30.222656},
+    end : {lat:58.170702 , lng : 70.560547}
   },
   paris : {
-    start : {lat: 43.834527, lng:-7.031250},
-    end : {lat:50.289339, lng : 11.601563}
+    start : {lat: 41.834527, lng:-6.031250},
+    end : {lat:54.289339, lng : 12.601563}
   },
    casablanca : {
-    start : {lat: 32.026706, lng:-14.633789},
-    end : {lat:35.603719, lng : -2.900391}
+    start : {lat: 30.026706, lng:-14.633789},
+    end : {lat:38.603719, lng : -2.900391}
   },
     bengalore : {
-    start : {lat: 10.098670,  lng:70.576172},
-    end : {lat:14.136576, lng : 82.661133}
+    start : {lat: 6.098670,  lng:68.576172},
+    end : {lat:23.136576, lng : 88.661133}
   }
 
  
