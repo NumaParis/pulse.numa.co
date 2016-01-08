@@ -1,3 +1,38 @@
+var futur_numa = {
+  mexico : {
+    center: {lat: 23.634501 , lng: -102.552784},
+    population: 8405837
+  },
+  asie : {
+    center: {lat: 14.058324,  lng: 108.277199},
+    population: 8405837
+  }
+};
+
+
+var present_numa = {
+  moscou : { 
+    start : {lat: 55.128649, lng: 33.222656},
+    end : {lat:58.170702 , lng : 44.560547}
+  },
+  paris : {
+    start : {lat: 43.834527, lng:-7.031250},
+    end : {lat:50.289339, lng : 11.601563}
+  },
+   casablanca : {
+    start : {lat: 32.026706, lng:-14.633789},
+    end : {lat:35.603719, lng : -2.900391}
+  },
+    bengalore : {
+    start : {lat: 10.098670,  lng:70.576172},
+    end : {lat:14.136576, lng : 82.661133}
+  }
+
+ 
+};
+
+
+
 function initMap() {
   var customMapType = new google.maps.StyledMapType([
     {
@@ -93,7 +128,7 @@ function initMap() {
 
 
 map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 5,
+    zoom: 2,
     center: {lat: 48.856614, lng: 2.352222},
      zoomControl: false,
      streetViewControl: false,
@@ -103,13 +138,30 @@ map = new google.maps.Map(document.getElementById('map'), {
     }
   });
 
- var imageBounds = new google.maps.LatLngBounds(new google.maps.LatLng(43.834527, -7.031250), 
-  new google.maps.LatLng( 50.289339, 11.601563));
+for (var numa in futur_numa) {
+    // Add the circle for this city to the map.
+    var cityCircle = new google.maps.Circle({
+      strokeColor: '#01B0F0',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#01B0F0',
+      fillOpacity: 0.35,
+      map: map,
+      center: futur_numa[numa].center,
+      radius: Math.sqrt(futur_numa[numa].population) * 700
+    });
+  }
 
-numa_logo = new google.maps.GroundOverlay(
+
+for (var numa in present_numa) {
+  var imageBounds = new google.maps.LatLngBounds(new google.maps.LatLng(present_numa[numa].start), new google.maps.LatLng( present_numa[numa].end));
+   numa_logo = new google.maps.GroundOverlay(
       '/svg/numa_animated_low.svg',
       imageBounds);
-numa_logo.setMap(map);
+   numa_logo.setMap(map);
+}
+
+
 
 map.mapTypes.set(customMapTypeId, customMapType);
 map.setMapTypeId(customMapTypeId);
