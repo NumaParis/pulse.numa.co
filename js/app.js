@@ -1,35 +1,37 @@
 var futur_numa = {
   mexico : {
     center: {lat: 23.634501 , lng: -102.552784},
-    population: 8405837
+    radius : 900000
   },
   asie : {
     center: {lat: 14.058324,  lng: 108.277199},
-    population: 8405837
+    radius : 900000
   }
 };
 
 
 var present_numa = {
   moscou : { 
-    start : {lat: 45.128649, lng: 30.222656},
-    end : {lat:58.170702 , lng : 70.560547}
+    center : {lat: 55.755826, lng: 37.617300},
+    size : 2
   },
   paris : {
-    start : {lat: 41.834527, lng:-6.031250},
-    end : {lat:54.289339, lng : 12.601563}
+    center  : {lat: 48.856614, lng:2.352222},
+    size : 4
   },
    casablanca : {
-    start : {lat: 30.026706, lng:-14.633789},
-    end : {lat:38.603719, lng : -2.900391}
+    center : {lat: 33.573110, lng: -7.589843},
+    size : 2
   },
     bengalore : {
-    start : {lat: 6.098670,  lng:68.576172},
-    end : {lat:23.136576, lng : 88.661133}
+    center : {lat: 12.971599,  lng: 77.594563},
+     size : 3
   }
 
  
 };
+
+var markers = [];
 
 
 
@@ -148,20 +150,22 @@ for (var numa in futur_numa) {
       fillOpacity: 0.35,
       map: map,
       center: futur_numa[numa].center,
-      radius: Math.sqrt(futur_numa[numa].population) * 700
+      radius: futur_numa[numa].radius * 2
     });
   }
 
-
 for (var numa in present_numa) {
-  var imageBounds = new google.maps.LatLngBounds(new google.maps.LatLng(present_numa[numa].start), new google.maps.LatLng( present_numa[numa].end));
-   numa_logo = new google.maps.GroundOverlay(
-      '/svg/numa_animated_low.svg',
+  centerCity = new google.maps.LatLng(present_numa[numa].center);
+  circle = new google.maps.Circle({radius: 900000 * present_numa[numa].size, center: centerCity});
+  bounds = circle.getBounds();
+  var imageBounds = new google.maps.LatLngBounds(bounds.getSouthWest(), bounds.getNorthEast());
+//  var imageBounds = new google.maps.LatLngBounds(new google.maps.LatLng(present_numa[numa].start), new google.maps.LatLng( present_numa[numa].end));
+   numa_logo= new google.maps.GroundOverlay(
+      '/svg/numa_respire_5.svg',
       imageBounds);
+   markers[numa] = numa_logo;
    numa_logo.setMap(map);
 }
-
-
 
 map.mapTypes.set(customMapTypeId, customMapType);
 map.setMapTypeId(customMapTypeId);
@@ -181,11 +185,14 @@ var cpt = true;
     var channel = pusher.subscribe('test_channel');
     channel.bind('my_event', function(data) {
       cpt = !cpt;
+      console.log(markers);
+      logo = markers['paris'];
+
       //console.log(cpt);
       if (cpt) {
-            numa_logo.set('url','/svg/numa_animated_low.svg');
+            logo.set('url','/svg/NUMA_respire_2.svg');
       }else {
-          numa_logo.set('url','/svg/numa_animated.svg');
+          logo.set('url','/svg/NUMA_respire_5.svg');
       }
-       numa_logo.setMap(map);
+      logo.setMap(map);
 });
