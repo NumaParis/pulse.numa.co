@@ -161,7 +161,7 @@ for (var numa in present_numa) {
   var imageBounds = new google.maps.LatLngBounds(bounds.getSouthWest(), bounds.getNorthEast());
 //  var imageBounds = new google.maps.LatLngBounds(new google.maps.LatLng(present_numa[numa].start), new google.maps.LatLng( present_numa[numa].end));
    numa_logo= new google.maps.GroundOverlay(
-      '/svg/numa_respire_5.svg',
+      '/svg/numa_respire_2.svg',
       imageBounds);
    markers[numa] = numa_logo;
    numa_logo.setMap(map);
